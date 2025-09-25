@@ -24,3 +24,18 @@ variable "account_id" {
   description = "AWS account ID"
   type        = string
 }
+
+variable "github_repositories" {
+  description = "List of GitHub repositories to grant access to"
+  type = list(object({
+    org    = string
+    repo   = string
+    branch = optional(string, "*")
+  }))
+}
+
+variable "github_oidc_provider_arn" {
+  type        = string
+  description = "ARN of the GitHub OIDC provider"
+}
+

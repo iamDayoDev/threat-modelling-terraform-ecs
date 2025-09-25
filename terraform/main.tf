@@ -1,11 +1,19 @@
 module "iam" {
   source = "./modules/iam"
 
-  role_name      = var.role_name
-  assume_service = var.assume_service
-  policy_name    = var.policy_name
-  account_id     = var.account_id
-  ecr_repo_name  = var.ecr_repo_name
+  role_name                = var.role_name
+  assume_service           = var.assume_service
+  policy_name              = var.policy_name
+  account_id               = var.account_id
+  ecr_repo_name            = var.ecr_repo_name
+  github_oidc_provider_arn = module.oidc.github_oidc_provider_arn
+  github_repositories = [
+    for repo in var.github_repositories : {
+      org    = repo.org
+      repo   = repo.repo
+      branch = lookup(repo, "branch", "*")
+    }
+  ]
 }
 
 module "security_groups" {
@@ -99,6 +107,13 @@ module "vpc" {
 module "ecr" {
   source        = "./modules/ecr"
   ecr_repo_name = var.ecr_repo_name
+}
+
+#OIDC
+module "oidc" {
+  source              = "./oidc"
+  aws_region          = var.aws_region
+  github_repositories = var.github_repositories
 }
 
 
