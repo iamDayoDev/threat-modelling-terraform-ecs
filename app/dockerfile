@@ -1,0 +1,47 @@
+# First stage
+FROM node:18-alpine AS builder  
+WORKDIR /app
+COPY . ./
+RUN yarn install && yarn build
+
+# Second stage 
+FROM node:18-alpine
+
+# Create a non-root user and group
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+WORKDIR /app
+
+RUN yarn global add serve
+
+# Copy built files from builder stage
+COPY --from=builder /app/build ./build
+
+# Change ownership to the non-root user
+RUN chown -R appuser:appgroup /app
+
+# Switch to non-root user
+USER appuser
+
+EXPOSE 3000
+
+CMD ["serve", "-s", "build", "-l", "3000"]
+
+
+
+
+
+
+
+
+
+# Note to self
+# Download base image first.
+# yarn is a package manager for Javascript the way pip is for Python
+# to reduce the image size, use multistage build, add .gitignore in the same root folder as docker file, alpine image, combine run commands.
+# docker build -t threat-model .
+# docker run -p 3000:3000 threat-model
+# If you want to run the image without logs add p (docker run -d -p 3000:3000 threat-model)
+# docker ps
+# docker stop <container_id>
+
