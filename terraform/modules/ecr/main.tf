@@ -25,8 +25,6 @@ module "ecr" {
       }
     ]
   })
-
-
   tags = {
     Terraform = "true"
   }

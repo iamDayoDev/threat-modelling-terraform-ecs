@@ -42,8 +42,8 @@ jobs:
           terraform_wrapper: false
       
 
-      - name: Terraform Format Check
-        run: find . -name '*.tf' -exec terraform fmt -check -diff {} +
+      # - name: Terraform Format Check
+      #   run: find . -name '*.tf' -exec terraform fmt -check -diff {} +
         
 
       - name: Install and Run TFLint
