@@ -40,11 +40,11 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_wrapper: false
-        working-directory: terraform
+      
 
       - name: Terraform Format Check
         run: find . -name '*.tf' -exec terraform fmt -check -diff {} +
-        working-directory: terraform
+        
 
       - name: Install and Run TFLint
         run: |
@@ -52,4 +52,4 @@ jobs:
           tflint --version
           tflint --init --chdir=terraform
           tflint --chdir=terraform
-        working-directory: terraform
+        
