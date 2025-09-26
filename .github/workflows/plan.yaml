@@ -52,4 +52,10 @@ jobs:
           tflint --version
           tflint --init --chdir=terraform
           tflint --chdir=terraform
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform Plan -var-file="terraform.tfvars" -out=tfplan
         
