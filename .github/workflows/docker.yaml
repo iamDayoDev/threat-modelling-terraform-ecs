@@ -6,6 +6,11 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
+
 env:
   AWS_REGION: us-east-1
   ECR_REGISTRY: 415309296505.dkr.ecr.us-east-1.amazonaws.com
