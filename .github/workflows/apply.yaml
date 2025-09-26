@@ -135,7 +135,7 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve terraform/tfplan
-
+        working-directory: terraform
 
       - name: Summary
         run: echo "### 🚀 Terraform Apply Completed" >> $GITHUB_STEP_SUMMARY
