@@ -47,8 +47,18 @@ jobs:
         run: terraform init
       
 
+      - name: Save Terraform Plan
+        run: terraform plan -out=tfplan
+        working-directory: terraform
+
+      - name: Upload tfplan artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: terraform/tfplan
+
       - name: Download tfplan artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: tfplan
           path: terraform
