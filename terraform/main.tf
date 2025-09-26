@@ -6,14 +6,14 @@ module "iam" {
   policy_name              = var.policy_name
   account_id               = var.account_id
   ecr_repo_name            = var.ecr_repo_name
-  github_oidc_provider_arn = module.oidc.github_oidc_provider_arn
-  github_repositories = [
-    {
-      org    = "iamDayoDev"
-      repo   = "threat-modelling-terraform-ecs"
-      branch = "*"
-    }
-  ]
+#   github_oidc_provider_arn = module.oidc.github_oidc_provider_arn 
+#   github_repositories = [
+#     {
+#       org    = "iamDayoDev"
+#       repo   = "threat-modelling-terraform-ecs"
+#       branch = "*"
+#     }
+#   ]
 }
 
 module "security_groups" {
@@ -109,12 +109,12 @@ module "ecr" {
   ecr_repo_name = var.ecr_repo_name
 }
 
-#OIDC
-module "oidc" {
-  source              = "./oidc"
-  aws_region          = var.aws_region
-  github_repositories = var.github_repositories
-}
+# #OIDC
+# module "oidc" {
+#   source              = "./oidc"
+#   aws_region          = var.aws_region
+#   github_repositories = var.github_repositories
+# }
 
 
 

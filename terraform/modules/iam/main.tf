@@ -91,39 +91,39 @@ resource "aws_iam_policy" "github_actions_ecs_policy" {
   }
 }
 
-# IAM Role
-resource "aws_iam_role" "github_actions_ecs_deploy_role" {
-  name = "GitHubActionsECSDeployRole"
+# # IAM Role
+# resource "aws_iam_role" "github_actions_ecs_deploy_role" {
+#   name = "GitHubActionsECSDeployRole"
 
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Principal = {
-          Federated = var.github_oidc_provider_arn
+#   assume_role_policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Effect = "Allow"
+#         Principal = {
+#           Federated = var.github_oidc_provider_arn
 
-        }
-        Action = "sts:AssumeRoleWithWebIdentity"
-        Condition = {
-          StringLike = {
-            "token.actions.githubusercontent.com:sub" = [
-              for repo in var.github_repositories : 
-                "repo:${repo.org}/${repo.repo}:${repo.branch}"
-            ]
-          }
-        }
-      }
-    ]
-  })
+#         }
+#         Action = "sts:AssumeRoleWithWebIdentity"
+#         Condition = {
+#           StringLike = {
+#             "token.actions.githubusercontent.com:sub" = [
+#               for repo in var.github_repositories : 
+#                 "repo:${repo.org}/${repo.repo}:${repo.branch}"
+#             ]
+#           }
+#         }
+#       }
+#     ]
+#   })
 
-  tags = {
-    Name = "GitHub-Actions-ECS-Deploy-Role"
-  }
-}
+#   tags = {
+#     Name = "GitHub-Actions-ECS-Deploy-Role"
+#   }
+# }
 
-# Policy Attachment
-resource "aws_iam_role_policy_attachment" "github_actions_ecs_policy_attachment" {
-  role       = aws_iam_role.github_actions_ecs_deploy_role.name
-  policy_arn = aws_iam_policy.github_actions_ecs_policy.arn
-}
+# # Policy Attachment
+# resource "aws_iam_role_policy_attachment" "github_actions_ecs_policy_attachment" {
+#   role       = aws_iam_role.github_actions_ecs_deploy_role.name
+#   policy_arn = aws_iam_policy.github_actions_ecs_policy.arn
+# }

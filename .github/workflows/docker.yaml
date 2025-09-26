@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  AWS_REGION: us-east
+  AWS_REGION: us-east-1
   ECR_REGISTRY: 415309296505.dkr.ecr.us-east-1.amazonaws.com
   ECR_REPOSITORY: threat-modelling-repo
   IMAGE_TAG: latest

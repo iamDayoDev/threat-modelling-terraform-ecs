@@ -17,8 +17,11 @@ jobs:
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-ecs-deploy-role
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-action-oidc-role
           aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Test AWS Credentials
+        run: aws sts get-caller-identity 
 
       - name: Download tfvars file from S3
         run: aws s3 cp s3://my-terraform-threat-modelling-bucket/terraform.tfvars terraform/terraform.tfvars
