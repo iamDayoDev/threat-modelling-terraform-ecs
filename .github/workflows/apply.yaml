@@ -37,14 +37,20 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Download Terraform Plan Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tfplan
+          path: terraform
+
       - name: Terraform Init
         run: terraform init
         working-directory: terraform
       
 
-      - name: Save Terraform Plan
-        run: terraform plan -out=tfplan
-        working-directory: terraform
+      # - name: Save Terraform Plan
+      #   run: terraform plan -out=tfplan
+      #   working-directory: terraform
 
       # - name: Upload tfplan and lock file
       #   uses: actions/upload-artifact@v4
@@ -55,11 +61,11 @@ jobs:
       #       terraform/.terraform.lock.hcl
 
 
-      - name: Download tfplan and lock file
-        uses: actions/download-artifact@v4
-        with:
-          name: tfplan-artifacts
-          path: terraform
+      # - name: Download tfplan and lock file
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: tfplan-artifacts
+      #     path: terraform
 
 
       - name: Terraform Apply
