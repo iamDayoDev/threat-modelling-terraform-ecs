@@ -80,6 +80,7 @@ jobs:
 
   # Job to apply the Terraform plan
   terraform-apply:
+    needs: terraform-plan
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
