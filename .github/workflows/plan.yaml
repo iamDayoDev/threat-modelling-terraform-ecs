@@ -62,7 +62,7 @@ jobs:
 
       - name: Save Terraform Plan
         run: terraform plan -out=tfplan
-         working-directory: terraform
+        working-directory: terraform
 
       - name: Upload tfplan artifact
         uses: actions/upload-artifact@v3
