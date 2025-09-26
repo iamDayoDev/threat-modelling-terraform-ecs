@@ -16,10 +16,9 @@ env:
   AWS_REGION: us-east-1
 
 jobs:
-
   # Job for Terraform plan
   jobs:
-  terraform-plan:
+    terraform-plan:
     runs-on: ubuntu-latest
 
     steps:
