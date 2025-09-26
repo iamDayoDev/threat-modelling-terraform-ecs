@@ -25,7 +25,7 @@ jobs:
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
       
       - name: Test AWS Credentials
@@ -45,6 +45,7 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+      
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
