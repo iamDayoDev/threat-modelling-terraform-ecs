@@ -1,19 +1,19 @@
 module "iam" {
   source = "./modules/iam"
 
-  role_name                = var.role_name
-  assume_service           = var.assume_service
-  policy_name              = var.policy_name
-  account_id               = var.account_id
-  ecr_repo_name            = var.ecr_repo_name
-#   github_oidc_provider_arn = module.oidc.github_oidc_provider_arn 
-#   github_repositories = [
-#     {
-#       org    = "iamDayoDev"
-#       repo   = "threat-modelling-terraform-ecs"
-#       branch = "*"
-#     }
-#   ]
+  role_name      = var.role_name
+  assume_service = var.assume_service
+  policy_name    = var.policy_name
+  account_id     = var.account_id
+  ecr_repo_name  = var.ecr_repo_name
+  #   github_oidc_provider_arn = module.oidc.github_oidc_provider_arn 
+  #   github_repositories = [
+  #     {
+  #       org    = "iamDayoDev"
+  #       repo   = "threat-modelling-terraform-ecs"
+  #       branch = "*"
+  #     }
+  #   ]
 }
 
 module "security_groups" {
