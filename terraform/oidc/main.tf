@@ -41,6 +41,6 @@ resource "aws_iam_role" "github_actions_ecs_deploy_role" {
   })
 
   tags = {
-    Name = "GitHub-Actions-EKS-Deploy-Role"
+    Name = "GitHub-Actions-ECS-Deploy-Role"
   }
 }

@@ -8,10 +8,10 @@ module "iam" {
   ecr_repo_name            = var.ecr_repo_name
   github_oidc_provider_arn = module.oidc.github_oidc_provider_arn
   github_repositories = [
-    for repo in var.github_repositories : {
-      org    = repo.org
-      repo   = repo.repo
-      branch = lookup(repo, "branch", "*")
+    {
+      org    = "iamDayoDev"
+      repo   = "threat-modelling-terraform-ecs"
+      branch = "*"
     }
   ]
 }
