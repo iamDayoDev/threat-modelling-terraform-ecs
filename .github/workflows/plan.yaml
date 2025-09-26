@@ -60,7 +60,13 @@ jobs:
         run: terraform init
         working-directory: terraform
 
-      - name: Terraform Plan
-        run: terraform plan 
-        working-directory: terraform
-        
+      - name: Save Terraform Plan
+        run: terraform plan -out=tfplan
+         working-directory: terraform
+
+      - name: Upload tfplan artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: tfplan
+          path: terraform/tfplan
+

@@ -47,8 +47,15 @@ jobs:
         run: terraform init
       
 
+      - name: Download tfplan artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: tfplan
+          path: terraform
+
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve terraform/tfplan
+
 
       - name: Summary
         run: echo "### 🚀 Terraform Apply Completed" >> $GITHUB_STEP_SUMMARY
