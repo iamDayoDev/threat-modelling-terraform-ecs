@@ -74,9 +74,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tfplan-artifacts
-          path: |
-            terraform/tfplan
-            terraform/.terraform.lock.hcl
+          path: terraform
+        
 
   # Job to apply the Terraform plan
   terraform-apply:
@@ -106,7 +105,7 @@ jobs:
         with:
           name: tfplan-artifacts
           path: |
-            terraform/tfplan
+            terraform
 
       - name: Terraform Init
         run: terraform init
@@ -134,8 +133,8 @@ jobs:
 
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve terraform/tfplan
-        # working-directory: terraform
+        run: terraform apply -auto-approve tfplan
+        working-directory: terraform
 
       - name: Summary
         run: echo "### 🚀 Terraform Apply Completed" >> $GITHUB_STEP_SUMMARY
