@@ -53,26 +53,6 @@ resource "aws_iam_role_policy" "this" {
   })
 }
 
-# S3 Bucket for ALB Access Logs
-resource "aws_s3_bucket_policy" "alb_logging_policy" {
-  bucket = aws_s3_bucket.alb_logs.bucket
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Principal = {
-          Service = "logdelivery.elasticloadbalancing.amazonaws.com"
-        }
-        Action   = "s3:PutObject"
-        Resource = "arn:aws:s3:::access-logs-threat-modelling-app/*"
-      }
-    ]
-  })
-}
-
-
 # IAM Policy for OIDC GitHub Actions
 resource "aws_iam_policy" "github_actions_ecs_policy" {
   name        = "GitHubActionsECSPolicy"

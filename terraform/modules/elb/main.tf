@@ -120,5 +120,32 @@ resource "aws_wafv2_web_acl" "alb_waf" {
 
 }
 
+# s3 bucket policy for ALB access logs
+resource "aws_s3_bucket_policy" "alb_logging_policy" {
+  bucket = "access-logs-threat-modelling-app"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "logdelivery.elasticloadbalancing.amazonaws.com"
+        }
+        Action   = "s3:PutObject"
+        Resource = "arn:aws:s3:::access-logs-threat-modelling-app/*"
+      },
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "logdelivery.elasticloadbalancing.amazonaws.com"
+        }
+        Action   = "s3:GetBucketAcl"
+        Resource = "arn:aws:s3:::access-logs-threat-modelling-app"
+      }
+    ]
+  })
+}
+
 
 
