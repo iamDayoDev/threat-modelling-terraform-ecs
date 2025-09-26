@@ -34,7 +34,10 @@ jobs:
 
       - name: Download tfvars file from S3
         run: aws s3 cp s3://my-terraform-threat-modelling-bucket/terraform.tfvars terraform/terraform.tfvars
-        working-directory: terraform
+
+      - name: Verify tfvars file
+        run: ls -la terraform
+
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
