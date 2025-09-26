@@ -8,7 +8,7 @@ resource "aws_lb" "ecs_alb" {
   drop_invalid_header_fields = true
 
   access_logs {
-    bucket  = "your-log-bucket-name"
+    bucket  = "access-logs-threat-modelling-app"
     enabled = true
   }
 
