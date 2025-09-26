@@ -33,6 +33,18 @@ resource "aws_iam_role_policy" "this" {
         ]
       },
       {
+        Effect = "Allow"
+        Principal = {
+          Service = "logdelivery.elasticloadbalancing.amazonaws.com"
+        }
+        Action = [
+          "s3:PutObject"
+        ]
+        Resource = "arn:aws:s3:::access-logs-threat-modelling-app/AWSLogs/*"
+
+      },
+
+      {
         Effect = "Allow",
         Action = [
           "ecr:GetDownloadUrlForLayer",
