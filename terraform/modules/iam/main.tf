@@ -34,9 +34,6 @@ resource "aws_iam_role_policy" "this" {
       },
       {
         Effect = "Allow"
-        Principal = {
-          Service = "logdelivery.elasticloadbalancing.amazonaws.com"
-        }
         Action = [
           "s3:PutObject"
         ]
