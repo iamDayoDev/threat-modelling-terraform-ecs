@@ -134,7 +134,7 @@ jobs:
 
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve terraform/tfplan
+        run: terraform apply -auto-approve tfplan
         working-directory: terraform
 
       - name: Summary
