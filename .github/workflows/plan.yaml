@@ -65,7 +65,7 @@ jobs:
         working-directory: terraform
 
       - name: Upload tfplan artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: tfplan
           path: terraform/tfplan
