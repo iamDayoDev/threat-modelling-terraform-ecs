@@ -11,6 +11,63 @@ env:
   AWS_REGION: us-east-1
 
 jobs:
+  # Job to destroy the Terraform-managed infrastructure
+  terraform-plan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials using OIDC
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+
+      - name: Test AWS Credentials
+        run: aws sts get-caller-identity 
+        working-directory: terraform
+
+      - name: Download tfvars file from S3
+        run: aws s3 cp s3://my-terraform-threat-modelling-bucket/terraform.tfvars terraform/terraform.tfvars
+
+      - name: Verify tfvars file
+        run: ls -la terraform
+
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+      
+
+      # - name: Terraform Format Check
+      #   run: find . -name '*.tf' -exec terraform fmt -check -diff {} +
+        
+
+      - name: Install and Run TFLint
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+          tflint --version
+          tflint --init --chdir=terraform
+          tflint --chdir=terraform
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: terraform
+
+      - name: Save Terraform Plan
+        run: terraform plan -out=tfplan
+        working-directory: terraform
+
+      - name: Upload tfplan and lock file
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan-artifacts
+          path: terraform
+          
   terraform-destroy:
     runs-on: ubuntu-latest
 
@@ -44,6 +101,6 @@ jobs:
         run: terraform init
         working-directory: terraform
 
-      - name: Terraform Destroy
-        run: terraform destroy -auto-approve -var-file="terraform.tfvars"
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
         working-directory: terraform
