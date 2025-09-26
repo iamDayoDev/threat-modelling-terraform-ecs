@@ -34,8 +34,8 @@ resource "aws_lb_target_group" "ecs_tg" {
 
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.ecs_alb.arn
-  port              = var.https_listener_port
-  protocol          = var.https_listener_protocol
+  port              = var.http_listener_port
+  protocol          = var.http_listener_protocol
 
   default_action {
     type             = "forward"
