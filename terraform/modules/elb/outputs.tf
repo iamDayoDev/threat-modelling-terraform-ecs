@@ -10,3 +10,8 @@ output "target_group_arn" {
   value = aws_lb_target_group.ecs_tg.arn
 }
 
+output "alb_dns_name_with_port" {
+  value = aws_lb.ecs_alb.dns_name
+  
+}
+
