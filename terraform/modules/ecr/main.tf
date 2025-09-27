@@ -3,8 +3,10 @@ module "ecr" {
   version = "2.3.0"
 
   repository_name    = var.ecr_repo_name
+  repository_force_delete      = var.force_delete
   registry_scan_type = "BASIC"
   repository_type    = "private"
+  
 
   create_registry_policy = false
 

@@ -107,6 +107,7 @@ module "vpc" {
 module "ecr" {
   source        = "./modules/ecr"
   ecr_repo_name = var.ecr_repo_name
+ 
 }
 
 # #OIDC
