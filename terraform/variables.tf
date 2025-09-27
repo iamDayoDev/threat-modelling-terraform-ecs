@@ -158,7 +158,7 @@ variable "alb_internal" {
 
 variable "alb_deletion_protection" {
   type    = bool
-  default = true
+  default = false
 }
 
 variable "target_group_name" {
@@ -247,6 +247,13 @@ variable "http_listener_port" {
 variable "http_listener_protocol" {
   type        = string
   description = "Protocol for HTTP listener"
+}
+
+variable "force_delete" {
+  type        = bool
+  description = "Force delete ECR repository"
+  default     = true
+
 }
 
 # variable "http_redirect_status_code" {
