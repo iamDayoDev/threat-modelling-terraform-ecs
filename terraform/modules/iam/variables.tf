@@ -13,7 +13,7 @@ variable "policy_name" {
 variable "region" {
   description = "AWS region to deploy resources"
   type        = string
-  default     = "eu-west-2"
+  default     = "us-east-1"
 }
 
 variable "ecr_repo_name" {
